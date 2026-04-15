@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DSA AI Prep — Smart Interview Coach</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;600;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">⟨DSA/AI⟩</div>
+    <div class="nav-links">
+      <button class="nav-btn active" onclick="showTab('practice')">Practice</button>
+      <button class="nav-btn" onclick="showTab('visualize')">Visualize</button>
+      <button class="nav-btn" onclick="showTab('interview')">Mock Interview</button>
+    </div>
+    <div class="lang-selector">
+      <select id="globalLang">
+        <option value="python">Python</option>
+        <option value="java">Java</option>
+        <option value="cpp">C++</option>
+      </select>
+    </div>
+  </nav>
+
+  <!-- PRACTICE TAB -->
+  <section id="tab-practice" class="tab active">
+    <div class="hero">
+      <h1>AI-Powered<br/><span class="accent">DSA Coach</span></h1>
+      <p class="hero-sub">Practice problems, get AI hints, visualize algorithms & ace your interviews</p>
+    </div>
+
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Problem Set</span>
+          <div class="filter-row">
+            <button class="chip active" onclick="filterProblems('all',this)">All</button>
+            <button class="chip" onclick="filterProblems('easy',this)">Easy</button>
+            <button class="chip" onclick="filterProblems('medium',this)">Medium</button>
+            <button class="chip" onclick="filterProblems('hard',this)">Hard</button>
+          </div>
+        </div>
+        <div class="problem-list" id="problemList"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title" id="problemTitle">Select a problem</span>
+          <span class="diff-badge" id="diffBadge"></span>
+        </div>
+        <p class="problem-desc" id="problemDesc">Choose a problem from the left to start solving.</p>
+        <div class="topic-tags" id="topicTags"></div>
+
+        <div class="code-area">
+          <div class="code-toolbar">
+            <span class="code-label">Your Code</span>
+            <select id="langSelect" onchange="updateTemplate()">
+              <option value="python">Python</option>
+              <option value="java">Java</option>
+              <option value="cpp">C++</option>
+            </select>
+          </div>
+          <textarea id="codeEditor" spellcheck="false" placeholder="Select a problem to start coding..."></textarea>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-primary" onclick="getAIHint()">✦ Get AI Hint</button>
+          <button class="btn-secondary" onclick="reviewCode()">Review My Code</button>
+          <button class="btn-ghost" onclick="getFullSolution()">Show Solution</button>
+        </div>
+
+        <div id="aiOutput" class="ai-output hidden">
+          <div class="ai-header">
+            <span class="ai-label">✦ AI Coach</span>
+            <button class="close-btn" onclick="closeAI()">×</button>
+          </div>
+          <div id="aiText" class="ai-text"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISUALIZE TAB -->
+  <section id="tab-visualize" class="tab">
+    <div class="viz-container">
+      <h2 class="section-title">Algorithm Visualizer</h2>
+      <p class="section-sub">Watch algorithms execute step by step with AI explanations</p>
+
+      <div class="viz-controls">
+        <select id="algoSelect" onchange="loadAlgo()">
+          <option value="bubble">Bubble Sort</option>
+          <option value="binary">Binary Search</option>
+          <option value="bfs">BFS / Graph Traversal</option>
+          <option value="stack">Stack Operations</option>
+        </select>
+        <input type="text" id="vizInput" placeholder="Enter numbers (e.g. 5,3,8,1,9,2)" value="5,3,8,1,9,2"/>
+        <button class="btn-primary" onclick="startViz()">▶ Visualize</button>
+        <button class="btn-secondary" onclick="explainAlgo()">✦ AI Explain</button>
+      </div>
+
+      <div class="viz-stage" id="vizStage">
+        <div class="viz-placeholder">Choose an algorithm and click Visualize</div>
+      </div>
+
+      <div class="viz-step-info" id="stepInfo"></div>
+      <div class="viz-nav" id="vizNav" style="display:none">
+        <button class="btn-secondary" onclick="prevStep()">← Prev</button>
+        <span id="stepCounter">Step 0 / 0</span>
+        <button class="btn-secondary" onclick="nextStep()">Next →</button>
+        <button class="btn-primary" onclick="autoPlay()">Auto Play</button>
+      </div>
+
+      <div id="vizAI" class="ai-output hidden" style="margin-top:1.5rem">
+        <div class="ai-header"><span class="ai-label">✦ AI Explanation</span><button class="close-btn" onclick="document.getElementById('vizAI').classList.add('hidden')">×</button></div>
+        <div id="vizAIText" class="ai-text"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOCK INTERVIEW TAB -->
+  <section id="tab-interview" class="tab">
+    <div class="interview-container">
+      <h2 class="section-title">AI Mock Interview</h2>
+      <p class="section-sub">Simulate a real technical interview with AI as your interviewer</p>
+
+      <div class="interview-setup" id="interviewSetup">
+        <div class="setup-grid">
+          <div class="setup-card">
+            <label>Difficulty</label>
+            <select id="intDiff">
+              <option value="entry">Entry Level (Fresher)</option>
+              <option value="mid">Mid Level (2 yrs)</option>
+              <option value="senior">Senior Level</option>
+            </select>
+          </div>
+          <div class="setup-card">
+            <label>Topic Focus</label>
+            <select id="intTopic">
+              <option value="arrays">Arrays & Strings</option>
+              <option value="trees">Trees & Graphs</option>
+              <option value="dp">Dynamic Programming</option>
+              <option value="mixed">Mixed Topics</option>
+            </select>
+          </div>
+          <div class="setup-card">
+            <label>Language</label>
+            <select id="intLang">
+              <option value="python">Python</option>
+              <option value="java">Java</option>
+              <option value="cpp">C++</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-primary large" onclick="startInterview()">▶ Start Interview</button>
+      </div>
+
+      <div class="interview-chat hidden" id="interviewChat">
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input-row">
+          <textarea id="chatInput" placeholder="Type your answer or ask a clarifying question..." rows="3"></textarea>
+          <button class="btn-primary" onclick="sendAnswer()">Send ↗</button>
+        </div>
+        <button class="btn-ghost" style="margin-top:0.75rem" onclick="endInterview()">End Interview & Get Feedback</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="loading-overlay hidden" id="loadingOverlay">
+    <div class="spinner"></div>
+    <p id="loadingText">AI is thinking...</p>
+  </div>
+
+  <script src="problems.js"></script>
+  <script src="visualizer.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
