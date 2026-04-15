@@ -1,6 +1,6 @@
 # 🧠 DSA AI Prep — Smart Interview Coach
 
-> An AI-powered Data Structures & Algorithms preparation platform with practice problems, algorithm visualization, and a mock interview simulator. Built with vanilla HTML/CSS/JS + Claude AI (Anthropic API).
+> An AI-powered Data Structures & Algorithms preparation platform with practice problems, algorithm visualization, and a mock interview simulator. Built with vanilla HTML/CSS/JS 
 
 ![DSA AI Prep](https://img.shields.io/badge/AI-Powered-7c6dfa?style=for-the-badge)
 ![Languages](https://img.shields.io/badge/Languages-Python%20%7C%20Java%20%7C%20C%2B%2B-3ecfaf?style=for-the-badge)
