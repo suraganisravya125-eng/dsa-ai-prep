@@ -162,30 +162,6 @@ User ──→ Frontend (HTML/JS)
                ├── Configure session
                ├── Real-time dialogue
                └── Performance feedback
-```
-
----
-
-## 🎯 What Interviewers Will Ask
-
-Since this is an AI project, be ready to explain:
-
-**Architecture:**
-- "How does the AI hint system work?" → Prompt engineering with context injection
-- "How do you maintain interview context?" → Pass full conversation history each API call
-- "Why Claude over GPT?" → Consistent, safety-focused, excellent at code tasks
-
-**DSA:**
-- "What's the time complexity of your visualizer?" → O(n²) steps for bubble sort
-- "How does your BFS implementation work?" → Queue + visited set, O(V+E)
-
----
-
-## 👤 Author
-
-Built for GrabOn Campus Drive 2026 — demonstrating real-world AI integration skills.
-
----
 
 ## 📄 License
 
